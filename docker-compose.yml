@@ -1,0 +1,65 @@
+version: '3.0'
+
+volumes:
+  wp:
+    driver: local
+    name: wp
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/wordpress_Data
+  db:
+    driver: local
+    name: db
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/database
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./mariadb
+    environment:
+      - MARIADB_HOST=${MARIADB_HOST}
+      - MARIADB_DB=${MARIADB_DB}
+      - MARIADB_ROOT_USER=${MARIADB_ROOT_USER}
+      - MARIADB_ROOT_PWD=${MARIADB_ROOT_PWD}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_USER_PWD=${MARIADB_USER_PWD}
+    # env_file:
+    #   - .env
+    volumes:
+      - db:/var/lib/mysql
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    depends_on:
+      - wordpress
+      - mariadb
+    #port 맵핑 local 443 : docker 443
+    ports:
+      - "443:443"
+    volumes:
+      - wp:/var/www/html
+    restart: unless-stopped
+
+  wordpress:
+    container_name: wordpress
+    build: ./wordpress
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+    volumes:
+      - wp:/var/www/html
+    restart: unless-stopped
+
+
+# 컨테이너를 수동으로 정지하기 전까지 재시작
+# restart: unless-stopped
+networks:
+  inception:
+    driver: bridge
