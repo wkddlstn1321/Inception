@@ -16,11 +16,7 @@ RUN chmod +x /var/www/script.sh
 
 #ENTRYPOINT [ "/var/www/script.sh" ]
 
-#### nh
 ENTRYPOINT	["bash"]
 CMD	["/var/www/script.sh", "mysqld"]
 
-####
 #CMD [ "mysqld" ]
-
-# CMD tail -f /dev/null
