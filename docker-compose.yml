@@ -27,11 +27,21 @@ services:
       - MARIADB_ROOT_PWD=${MARIADB_ROOT_PWD}
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_USER_PWD=${MARIADB_USER_PWD}
+      - WORDPRESS_URL=${WORDPRESS_URL}
+      - WORDPRESS_TITLE=${WORDPRESS_TITLE}
+      - WORDPRESS_ADMIN_USER=${WORDPRESS_ADMIN_USER}
+      - WORDPRESS_ADMIN_USER_PWD=${WORDPRESS_ADMIN_USER_PWD}
+      - WORDPRESS_ADMIN_EMI=${WORDPRESS_ADMIN_EMI}
+      - WORDPRESS_USER=${WORDPRESS_USER}
+      - WORDPRESS_USER_PWD=${WORDPRESS_USER_PWD}
+      - WORDPRESS_USER_EMI=${WORDPRESS_USER_EMI}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=${NO}
     # env_file:
     #   - .env
     volumes:
       - db:/var/lib/mysql
     restart: unless-stopped
+    tty: yes #
 
   nginx:
     container_name: nginx
@@ -45,6 +55,7 @@ services:
     volumes:
       - wp:/var/www/html
     restart: unless-stopped
+    tty: yes #
 
   wordpress:
     container_name: wordpress
@@ -56,6 +67,7 @@ services:
     volumes:
       - wp:/var/www/html
     restart: unless-stopped
+    tty: yes #
 
 
 # 컨테이너를 수동으로 정지하기 전까지 재시작

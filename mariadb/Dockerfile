@@ -5,14 +5,22 @@ RUN apt update -y && apt upgrade -y && \
 
 EXPOSE 3306
 
-COPY ./tools/db.sql /var/www/
+COPY ./tools/script.sh /var/www/
+# COPY ./tools/db.sql /var/www/
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 # COPY conf/my.cnf /etc/mysql/
 
 
-RUN service mysql start && mysql < /var/www/db.sql
+# RUN service mysql start && mysql < /var/www/db.sql
+RUN chmod +x /var/www/script.sh
 
-# ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "mysqld" ]
+#ENTRYPOINT [ "/var/www/script.sh" ]
+
+#### nh
+ENTRYPOINT	["bash"]
+CMD	["/var/www/script.sh", "mysqld"]
+
+####
+#CMD [ "mysqld" ]
 
 # CMD tail -f /dev/null
