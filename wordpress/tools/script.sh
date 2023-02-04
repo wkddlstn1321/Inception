@@ -6,11 +6,11 @@
 # wp core install --url=1E --title=1 --admin_user=1 --admin_password=1 --admin_email=1 && \
 # wp user create 1 2 --role=author --user_pass=1
 # "
-mkdir -p /run/php;
-touch /run/php/php7.3-fpm.pid;
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
+mkdir -p /run/php;
+touch /run/php/php7.3-fpm.pid;
 mkdir -p var/www/html
 mv /wordpress/* /var/www/html/ && \
 chown -R www-data:www-data /var/www/html/ && \

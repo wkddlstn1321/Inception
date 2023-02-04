@@ -6,13 +6,14 @@ server {
         #listen [::]:80 default_server;
 
         # SSL configuration
-        #
-        listen 443 ssl default_server;
-        listen [::]:443 ssl default_server;
-        ssl_certificate /etc/nginx/certificate/nginx-certificate.crt;
-        ssl_certificate_key /etc/nginx/certificate/nginx.key;
-        ssl_protocols TLSv1.2 TLSv1.3;
-        ssl_prefer_server_ciphers off;
+        listen 443 ssl default_server; #http 요청을 받을 포트를 설정
+        listen [::]:443 ssl default_server; #ipv6
+        # 참고 사이트 https://techexpert.tips/nginx/nginx-disable-ssl-tls-1-0-tls-1-1/
+        ssl_certificate /etc/nginx/certificate/nginx-certificate.crt; #공개키 위치
+        ssl_certificate_key /etc/nginx/certificate/nginx.key;         #비공개키 위치
+        ssl_protocols TLSv1.2 TLSv1.3;  #ssl 버전
+        ssl_prefer_server_ciphers off; #on 으로 할 시 견고한 알고리즘만 사용 off 낮은 강도의 암호화 알고리즘 사용 가능
+        #보안 통신과정에서 사용할 암호화 알고리즘
         ssl_ciphers "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA";
 
         #
@@ -27,17 +28,17 @@ server {
         #
         # include snippets/snakeoil.conf;
 
-        root /var/www/html;
+        root /var/www/html; # 요청되는 파일을 찾을 root 경로
 
         # Add index.php to the list if you are using PHP
-        index index.php index.html index.htm index.nginx-debian.html;
+        index index.php index.nginx-debian.html; #index.html index.htm
 
         server_name _;
 
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
+                try_files $uri $uri/ =404; #루트 폴더에 uri에 따른 폴더가 있는지 찾아보고 없으면 404에러
         }
 
         # pass PHP scripts to FastCGI server

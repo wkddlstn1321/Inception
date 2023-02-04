@@ -12,7 +12,7 @@ RUN chmod +x /var/www/script.sh
 
 ENTRYPOINT [ "var/www/script.sh" ]
 
-# CMD tail -f /dev/null
+# 포그라운드 실행
 CMD ["nginx", "-g", "daemon off;"]
 
 #ENTRYPOINT ["bash"]
