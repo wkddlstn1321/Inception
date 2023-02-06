@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # if [ ! -f /etc/ssl/certs/nginx.crt ]; then
 mkdir /etc/nginx/certificate
 cd /etc/nginx/certificate
