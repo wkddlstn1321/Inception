@@ -2,6 +2,7 @@
 
 service mysql start
 
+echo "??"
 mysql -uroot -p$MARIADB_ROOT_PWD << EOSQL
 	CREATE DATABASE IF NOT EXISTS $MARIADB_DB;
 	CREATE USER IF NOT EXISTS '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_USER_PWD';
@@ -10,6 +11,7 @@ mysql -uroot -p$MARIADB_ROOT_PWD << EOSQL
 	ALTER USER '$MARIADB_ROOT_USER'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PWD';
 	FLUSH PRIVILEGES;
 EOSQL
+echo "??"
 
 mysqladmin -uroot -p"$MARIADB_ROOT_PWD" shutdown
 
