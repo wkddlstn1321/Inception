@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# -f: 파일이 디렉터리나 일반파일인지 확인한다.
 if [ ! -f /var/www/html/wp-config.php ]; then
 
 mkdir -p /run/php;
@@ -23,12 +24,6 @@ wp core install --allow-root --url="$DOMAIN_NAME" --title="$WORDPRESS_TITLE" --a
 wp user create --allow-root "$WORDPRESS_USER" "$WORDPRESS_USER_EMI" --user_pass="$WORDPRESS_USER_PWD"
 echo "wp core install end!"
 fi
-
-# ip
-# 172.17.0.2 maria
-# 172.23.0.2 wordpress
-
-# exec /usr/sbin/php-fpm7.3 -F
 
 exec "$@"
 

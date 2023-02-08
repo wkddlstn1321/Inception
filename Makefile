@@ -1,10 +1,10 @@
-NAME	= docker
+NAME	= -f ./srcs/docker-compose.yml
 
-$(NAME)	:
-		docker-compose up
+all	:
+		docker compose $(NAME) up
 
 clean	:
-		docker images rm
+		docker compose $(NAME) down
 
 fclean	:	clean
 		docker rm mariadb
@@ -12,7 +12,8 @@ fclean	:	clean
 		docker volume rm db
 
 re :
-		make fclean
-		make
+		docker compose $(NAME) up --build
 
 .PHONY	:	all clean fclean re
+
+# start stop down(del all) up
