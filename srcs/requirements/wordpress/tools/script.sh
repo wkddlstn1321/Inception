@@ -1,11 +1,12 @@
 #!/bin/bash
 
+
 # -f: 파일이 디렉터리나 일반파일인지 확인한다.
+#필요해?
 if [ ! -f /var/www/html/wp-config.php ]; then
 
 mkdir -p /run/php;
 touch /run/php/php7.3-fpm.pid;
-
 mkdir -p var/www/html
 mv /wordpress/* /var/www/html/ && \
 
@@ -26,4 +27,3 @@ echo "wp core install end!"
 fi
 
 exec "$@"
-
