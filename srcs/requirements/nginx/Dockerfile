@@ -1,7 +1,7 @@
 FROM debian:buster
 
-RUN apt update -y && apt upgrade -y && \
-apt -y install nginx openssl vim
+RUN apt-get update -y && apt-get upgrade -y && \
+apt-get -y install nginx openssl vim
 
 COPY ./conf/default /etc/nginx/sites-enabled/default
 COPY ./tools/script.sh /var/www

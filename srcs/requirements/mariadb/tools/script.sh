@@ -2,16 +2,6 @@
 
 service mysql start
 
-# echo "CREATE DATABASE IF NOT EXISTS $MARIADB_DB;" > sql.sql
-# echo "CREATE USER IF NOT EXISTS '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_USER_PWD';" >> sql.sql
-# echo "GRANT ALL PRIVILEGES ON $MARIADB_DB.* TO '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_USER_PWD';" >> sql.sql
-# echo "FLUSH PRIVILEGES;" >> sql.sql
-# echo "ALTER USER '$MARIADB_ROOT_USER'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PWD';" >> sql.sql
-# echo "FLUSH PRIVILEGES;" >> sql.sql
-
-# mysql -uroot -p$MARIADB_ROOT_PWD -e "source /sql.sql";
-# rm sql.sql
-
 mysql -uroot -p$MARIADB_ROOT_PWD << EOSQL
 	CREATE DATABASE IF NOT EXISTS $MARIADB_DB;
 	CREATE USER IF NOT EXISTS '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_USER_PWD';
